@@ -33,6 +33,12 @@ The HiFive1 Rev B is a **32-bit RISC-V microcontroller** designed for embedded a
 - **Arduino-compatible GPIO pin headers**
 - **QSPI Flash for firmware storage**
 
+<div align="center">
+  <img src="images/Hifive_Rev1b_Board.png" alt="Hifive Rev1b Board" width="750">
+  <p><b>Fig 1:</b> Hifive Rev1b board</p>
+</div>
+
+
 ## 3. Key Components and their Roles
 ### **FE310-G002 SoC (RISC-V Processor)**
 - **Core:** 32-bit RISC-V CPU (RV32IMAC) running at 320+ MHz
@@ -102,12 +108,25 @@ The **ESP32-SOLO-1** module is included for **wireless communication**.
    ```
 4. Copy example code and ensure the main file is named `main.c`.
 
+<div align="center">
+  <img src="images/hifive_rev1b_pinout.png" alt="Pinout diagram" width="750">
+  <p><b>Fig 2:</b> Pinout diagram - Hifive Rev1 b</p>
+</div>
+
+
 ## 5. Note on Freedom Studio
 Freedom Studio is an **Eclipse-based IDE** bundled with **RISC-V GCC Toolchain**, **OpenOCD**, and **Freedom-E-SDK**.If **Freedom Studio** detects that J-Link OB software is installed it will attempt to use this install otherwise it will use the bundled software. **Skip J-Link and PlatformIO** installation if you are using Freedom studio IDE
 - Download Freedom Studio: [Freedom Studio](https://www.sifive.com/boards/hifive1-rev-b)
 - But The Freedom E SDK development environment (which is an SDK file on github) requires J-Link OB software to be installed separately on the host machine software for programming and debugging on the HiFive1 Rev B.
 - **Freedom E SDK is supported only on Linux and macOS**
 - Download Freedom-E-SDK (Linux/macOS only): [Freedom-e-sdk](https://github.com/sifive/freedom-e-sdk)
+
+### GPIO pin details
+This table contains the GPIO pins and their corresponding assigned functions. This would be helpful when interfacing different electronic components and implementing the projects in the repository
+<div align="center">
+  <img src="images/Hifive_rev1bGPIO.png" alt="Hifive Rev1b Board">
+  <p><b>Fig 3:</b> GPIO Pin Mappings</p>
+</div>
 
 ## 6. Contribution Guide
 We welcome contributions! Follow these steps:
