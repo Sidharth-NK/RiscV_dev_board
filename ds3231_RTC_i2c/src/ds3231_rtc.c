@@ -1,33 +1,20 @@
 #include "ds3231_rtc.h"
 
-void set_rtc_time() {
-    uint8_t data[8] = {
-        DS3231_REG_SECONDS,
-        decimal_to_bcd(INIT_SECONDS),
-        decimal_to_bcd(INIT_MINUTES),
-        decimal_to_bcd(INIT_HOURS),
-        decimal_to_bcd(INIT_DAY),
-        decimal_to_bcd(INIT_DATE),
-        decimal_to_bcd(INIT_MONTH),
-        decimal_to_bcd(INIT_YEAR),
-    };
+extern struct metal_i2c *i2c;
 
-    if (metal_i2c_transfer(i2c, RTC_SLAVE_ADDR, data, 8, NULL, 0) != 0) {
-        printf("Failed to set time\r\n");
-    } else {
-        printf("Time and Date set successfully\r\n");
-    }
-}
-
+// Convert BCD to Decimal
 uint8_t bcd_to_decimal(uint8_t bcd) {
     return ((bcd >> 4) * 10) + (bcd & 0x0F);
 }
 
+// Convert Decimal to BCD
 uint8_t decimal_to_bcd(uint8_t decimal) {
     return ((decimal / 10) << 4) | (decimal % 10);
 }
 
-void delay_us_hifive(int us) {
-    long int target = metal_cpu_get_timer(cpu) + us * metal_cpu_get_timebase(cpu) / 1000000;
-    while (metal_cpu_get_timer(cpu) < target);
+// Delay function for HiFive1 Rev B
+void delay_us_hifive(uint32_t us) {
+    uint64_t start = metal_cpu_get_mtime(metal_cpu_get(0));
+    uint64_t end = start + (us * 32768 / 1000000);  // Convert us to clock cycles (HiFive1: 32.768 kHz)
+    while (metal_cpu_get_mtime(metal_cpu_get(0)) < end);
 }
